@@ -585,11 +585,11 @@
     <span class="kt">address</span> <span class="n">owner</span><span class="p">;</span>
 
     <span class="kd">function</span> <span class="n">SomeRegister</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">owner</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">;</span>
+        <span class="n">owner</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="kd">modifier</span> <span class="n">onlyOwner</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">owner</span><span class="p">)</span>
+        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="n">owner</span><span class="p">)</span>
         <span class="kr">_</span><span class="p">;</span>
     <span class="p">}</span>
 
@@ -620,13 +620,13 @@
     <span class="kt">address</span> <span class="kr">public</span> <span class="n">owner</span><span class="p">;</span>
 
     <span class="kd">modifier</span> <span class="n">onlyOwner</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">owner</span><span class="p">);</span>
+        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="n">owner</span><span class="p">);</span>
         <span class="kr">_</span><span class="p">;</span>
     <span class="p">}</span>
 
     <span class="kd">function</span> <span class="n">Relay</span><span class="p">(</span><span class="kt">address</span> <span class="n">initAddr</span><span class="p">)</span> <span class="p">{</span>
         <span class="n">currentVersion</span> <span class="o">=</span> <span class="n">initAddr</span><span class="p">;</span>
-        <span class="n">owner</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">;</span> <span class="c1">// this owner may be another contract with multisig, not a single contract owner</span>
+        <span class="n">owner</span> <span class="o">=</span> <span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">;</span> <span class="c1">// this owner may be another contract with multisig, not a single contract owner</span>
     <span class="p">}</span>
 
     <span class="kd">function</span> <span class="n">changeContract</span><span class="p">(</span><span class="kt">address</span> <span class="n">newVersion</span><span class="p">)</span> <span class="kr">public</span>
@@ -636,7 +636,7 @@
     <span class="p">}</span>
 
     <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
-        <span class="n">require</span><span class="p">(</span><span class="n">currentVersion</span><span class="p">.</span><span class="nb">delegatecall</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="n">data</span><span class="p">));</span>
+        <span class="nb">require</span><span class="p">(</span><span class="n">currentVersion</span><span class="p">.</span><span class="nb">delegatecall</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="n">data</span><span class="p">));</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -650,7 +650,7 @@
 <span class="kt">address</span> <span class="kr">private</span> <span class="n">owner</span><span class="p">;</span>
 
 <span class="kd">modifier</span> <span class="n">isAdmin</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="n">sender</span> <span class="o">==</span> <span class="n">owner</span><span class="p">);</span>
+    <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span> <span class="o">==</span> <span class="n">owner</span><span class="p">);</span>
     <span class="kr">_</span><span class="p">;</span>
 <span class="p">}</span>
 
@@ -684,12 +684,12 @@
 <span class="kt">uint</span> <span class="kr">constant</span> <span class="n">withdrawalWaitPeriod</span> <span class="o">=</span> <span class="mi">28</span> <span class="kc">days</span><span class="p">;</span> <span class="c1">// 4 weeks</span>
 
 <span class="kd">function</span> <span class="n">requestWithdrawal</span><span class="p">()</span> <span class="kr">public</span> <span class="p">{</span>
-    <span class="k">if</span> <span class="p">(</span><span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">uint</span> <span class="n">amountToWithdraw</span> <span class="o">=</span> <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">];</span>
-        <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// for simplicity, we withdraw everything;</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">uint</span> <span class="n">amountToWithdraw</span> <span class="o">=</span> <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">];</span>
+        <span class="n">balances</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="c1">// for simplicity, we withdraw everything;</span>
         <span class="c1">// presumably, the deposit function prevents new deposits when withdrawals are in progress</span>
 
-        <span class="n">requestedWithdrawals</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">]</span> <span class="o">=</span> <span class="n">RequestedWithdrawal</span><span class="p">({</span>
+        <span class="n">requestedWithdrawals</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">]</span> <span class="o">=</span> <span class="n">RequestedWithdrawal</span><span class="p">({</span>
             <span class="n">amount</span><span class="o">:</span> <span class="n">amountToWithdraw</span><span class="p">,</span>
             <span class="n">time</span><span class="o">:</span> <span class="nb">now</span>
         <span class="p">});</span>
@@ -697,11 +697,11 @@
 <span class="p">}</span>
 
 <span class="kd">function</span> <span class="n">withdraw</span><span class="p">()</span> <span class="kr">public</span> <span class="p">{</span>
-    <span class="k">if</span><span class="p">(</span><span class="n">requestedWithdrawals</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">].</span><span class="n">amount</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nb">now</span> <span class="o">&gt;</span> <span class="n">requestedWithdrawals</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">].</span><span class="n">time</span> <span class="o">+</span> <span class="n">withdrawalWaitPeriod</span><span class="p">)</span> <span class="p">{</span>
-        <span class="kt">uint</span> <span class="n">amountToWithdraw</span> <span class="o">=</span> <span class="n">requestedWithdrawals</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">].</span><span class="n">amount</span><span class="p">;</span>
-        <span class="n">requestedWithdrawals</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">].</span><span class="n">amount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+    <span class="k">if</span><span class="p">(</span><span class="n">requestedWithdrawals</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">].</span><span class="n">amount</span> <span class="o">&gt;</span> <span class="mi">0</span> <span class="o">&amp;&amp;</span> <span class="nb">now</span> <span class="o">&gt;</span> <span class="n">requestedWithdrawals</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">].</span><span class="n">time</span> <span class="o">+</span> <span class="n">withdrawalWaitPeriod</span><span class="p">)</span> <span class="p">{</span>
+        <span class="kt">uint</span> <span class="n">amountToWithdraw</span> <span class="o">=</span> <span class="n">requestedWithdrawals</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">].</span><span class="n">amount</span><span class="p">;</span>
+        <span class="n">requestedWithdrawals</span><span class="p">[</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">].</span><span class="n">amount</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
 
-        <span class="n">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="n">sender</span><span class="p">.</span><span class="nb">send</span><span class="p">(</span><span class="n">amountToWithdraw</span><span class="p">));</span>
+        <span class="nb">require</span><span class="p">(</span><span class="nb">msg</span><span class="p">.</span><span class="nb">sender</span><span class="p">.</span><span class="nb">send</span><span class="p">(</span><span class="n">amountToWithdraw</span><span class="p">));</span>
     <span class="p">}</span>
 <span class="p">}</span>
 </pre></div>
@@ -722,7 +722,7 @@
 <h5 id="automatic-deprecation">Automatic Deprecation<a class="headerlink" href="#automatic-deprecation" title="Permanent link">&para;</a></h5>
 <p>During testing, you can force an automatic deprecation by preventing any actions, after a certain time period. For example, an alpha contract may work for several weeks and then automatically shut down all actions, except for the final withdrawal.</p>
 <div class="highlight"><pre><span></span><span class="kd">modifier</span> <span class="n">isActive</span><span class="p">()</span> <span class="p">{</span>
-    <span class="n">require</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="n">number</span> <span class="o">&lt;=</span> <span class="n">SOME_BLOCK_NUMBER</span><span class="p">);</span>
+    <span class="nb">require</span><span class="p">(</span><span class="nb">block</span><span class="p">.</span><span class="n">number</span> <span class="o">&lt;=</span> <span class="n">SOME_BLOCK_NUMBER</span><span class="p">);</span>
     <span class="kr">_</span><span class="p">;</span>
 <span class="p">}</span>
 
